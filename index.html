@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Teste Supabase</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f3f4f6;
+            color: #1f2937;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 14px;
+            box-shadow: 0 5px 25px rgba(0,0,0,.08);
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            background: #2563eb;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
+
+        #mensagem {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            display: none;
+            white-space: pre-wrap;
+            line-height: 1.5;
+        }
+
+        .sucesso {
+            display: block !important;
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .erro {
+            display: block !important;
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+    <div class="card">
+
+        <h1>Teste de conexão</h1>
+
+        <p>
+            Digite um nome para testar o cadastro no Supabase.
+        </p>
+
+
+        <label for="nome">
+            Nome
+        </label>
+
+
+        <input
+            type="text"
+            id="nome"
+            placeholder="Digite um nome para teste"
+        >
+
+
+        <button
+            id="botao"
+            onclick="testarSupabase()"
+        >
+            Testar conexão
+        </button>
+
+
+        <div id="mensagem"></div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* ============================================================
+   CONFIGURAÇÃO DO SUPABASE
+============================================================ */
+
+const SUPABASE_API =
+    "https://wxlltutgwoslyhqvbhqb.supabase.co/rest/v1/";
+
+const SUPABASE_KEY =
+    "sb_publishable_xgSMPfvdpWLPjwECyOkADw_FR44UcVk";
+
+
+/* ============================================================
+   TESTE
+============================================================ */
+
+async function testarSupabase() {
+
+    const nome =
+        document
+            .getElementById("nome")
+            .value
+            .trim();
+
+    const mensagem =
+        document
+            .getElementById("mensagem");
+
+    const botao =
+        document
+            .getElementById("botao");
+
+
+    /* Limpa mensagem */
+
+    mensagem.className = "";
+
+    mensagem.style.display = "none";
+
+    mensagem.textContent = "";
+
+
+    /* Validação */
+
+    if (!nome) {
+
+        mensagem.className = "erro";
+
+        mensagem.textContent =
+            "Digite um nome para testar.";
+
+        return;
+    }
+
+
+    /* Desativa botão */
+
+    botao.disabled = true;
+
+    botao.textContent =
+        "Testando conexão...";
+
+
+    try {
+
+        /* ====================================================
+           GERA ID
+        ==================================================== */
+
+        const id =
+            crypto.randomUUID();
+
+
+        console.log(
+            "ID gerado:",
+            id
+        );
+
+
+        /* ====================================================
+           ENVIA PARA SUPABASE
+        ==================================================== */
+
+        const resposta =
+            await fetch(
+
+                `${SUPABASE_API}candidates`,
+
+                {
+
+                    method: "POST",
+
+                    headers: {
+
+                        "apikey":
+                            SUPABASE_KEY,
+
+                        "Authorization":
+                            `Bearer ${SUPABASE_KEY}`,
+
+                        "Content-Type":
+                            "application/json",
+
+                        "Prefer":
+                            "return=minimal"
+
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            id: id,
+
+                            name: nome
+
+                        })
+
+                }
+
+            );
+
+
+        /* ====================================================
+           LÊ RESPOSTA
+        ==================================================== */
+
+        const texto =
+            await resposta.text();
+
+
+        console.log(
+            "Status:",
+            resposta.status
+        );
+
+
+        console.log(
+            "Resposta:",
+            texto
+        );
+
+
+        /* ====================================================
+           VERIFICA ERRO
+        ==================================================== */
+
+        if (!resposta.ok) {
+
+            let detalhe =
+                texto;
+
+
+            try {
+
+                const json =
+                    JSON.parse(texto);
+
+
+                detalhe =
+                    json.message ||
+                    json.error ||
+                    json.details ||
+                    json.hint ||
+                    texto;
+
+            }
+
+            catch (e) {
+
+                // Mantém resposta original
+
+            }
+
+
+            throw new Error(
+
+                `HTTP ${resposta.status}: ${detalhe}`
+
+            );
+
+        }
+
+
+        /* ====================================================
+           SUCESSO
+        ==================================================== */
+
+        mensagem.className =
+            "sucesso";
+
+
+        mensagem.textContent =
+
+            "CONEXÃO FUNCIONANDO!\n\n" +
+
+            "O candidato foi gravado com sucesso no Supabase.\n\n" +
+
+            "ID criado:\n" +
+
+            id;
+
+
+        botao.textContent =
+            "Teste realizado";
+
+
+    }
+
+    catch (erro) {
+
+        console.error(
+            "ERRO:",
+            erro
+        );
+
+
+        mensagem.className =
+            "erro";
+
+
+        mensagem.textContent =
+
+            "ERRO AO CONECTAR AO SUPABASE\n\n" +
+
+            erro.message;
+
+
+        botao.disabled =
+            false;
+
+
+        botao.textContent =
+            "Tentar novamente";
+
+    }
+
+}
+
+</script>
+
+
+</body>
+
+</html>
