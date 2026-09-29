@@ -3,99 +3,332 @@
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
-    <title>Teste Supabase</title>
+<title>Teste de Negociação</title>
 
-    <style>
 
-        * {
-            box-sizing: border-box;
-        }
+<style>
 
-        body {
-            margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f3f4f6;
-            color: #1f2937;
-        }
+/* ============================================================
+   CONFIGURAÇÃO VISUAL
+============================================================ */
 
-        .container {
-            max-width: 600px;
-            margin: 50px auto;
-            padding: 20px;
-        }
+* {
+    box-sizing: border-box;
+}
 
-        .card {
-            background: white;
-            padding: 30px;
-            border-radius: 14px;
-            box-shadow: 0 5px 25px rgba(0,0,0,.08);
-        }
 
-        h1 {
-            margin-top: 0;
-        }
+body {
+    margin: 0;
 
-        label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
 
-        input {
-            width: 100%;
-            padding: 14px;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
-            font-size: 16px;
-            margin-bottom: 20px;
-        }
+    background: #f3f4f6;
 
-        button {
-            width: 100%;
-            padding: 15px;
-            border: none;
-            border-radius: 8px;
-            background: #2563eb;
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+    color: #1f2937;
+}
 
-        button:disabled {
-            background: #9ca3af;
-            cursor: not-allowed;
-        }
 
-        #mensagem {
-            margin-top: 20px;
-            padding: 15px;
-            border-radius: 8px;
-            display: none;
-            white-space: pre-wrap;
-            line-height: 1.5;
-        }
+.container {
+    max-width: 850px;
 
-        .sucesso {
-            display: block !important;
-            background: #dcfce7;
-            color: #166534;
-        }
+    margin: 30px auto;
 
-        .erro {
-            display: block !important;
-            background: #fee2e2;
-            color: #991b1b;
-        }
+    padding: 20px;
+}
 
-    </style>
+
+.card {
+    background: #ffffff;
+
+    border-radius: 14px;
+
+    padding: 30px;
+
+    box-shadow:
+        0 5px 25px rgba(0,0,0,.08);
+}
+
+
+h1 {
+    margin-top: 0;
+
+    color: #111827;
+}
+
+
+.descricao {
+    color: #6b7280;
+
+    line-height: 1.6;
+}
+
+
+.campo-nome {
+    margin: 25px 0;
+}
+
+
+label.titulo {
+    display: block;
+
+    font-weight: bold;
+
+    margin-bottom: 8px;
+}
+
+
+input[type="text"] {
+    width: 100%;
+
+    padding: 14px;
+
+    border:
+        1px solid #d1d5db;
+
+    border-radius: 8px;
+
+    font-size: 16px;
+
+    outline: none;
+}
+
+
+input[type="text"]:focus {
+    border-color: #2563eb;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(37,99,235,.10);
+}
+
+
+/* ============================================================
+   QUESTÕES
+============================================================ */
+
+.questao {
+    margin-top: 24px;
+
+    padding: 22px;
+
+    border:
+        1px solid #e5e7eb;
+
+    border-radius: 10px;
+
+    background: #fafafa;
+}
+
+
+.numero {
+    font-weight: bold;
+
+    color: #2563eb;
+
+    margin-bottom: 10px;
+}
+
+
+.pergunta {
+    font-size: 16px;
+
+    line-height: 1.5;
+
+    margin-bottom: 18px;
+
+    font-weight: 500;
+}
+
+
+.alternativa {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    background: #ffffff;
+
+    border:
+        1px solid #d1d5db;
+
+    border-radius: 8px;
+
+    padding: 12px;
+
+    margin-top: 9px;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+
+.alternativa:hover {
+    border-color: #2563eb;
+
+    background: #eff6ff;
+}
+
+
+.alternativa:has(input:checked) {
+    border-color: #2563eb;
+
+    background: #dbeafe;
+}
+
+
+.alternativa input {
+    cursor: pointer;
+}
+
+
+/* ============================================================
+   BOTÃO
+============================================================ */
+
+.botao-finalizar {
+    width: 100%;
+
+    margin-top: 30px;
+
+    padding: 15px;
+
+    border: 0;
+
+    border-radius: 8px;
+
+    background: #2563eb;
+
+    color: #ffffff;
+
+    font-size: 17px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+
+.botao-finalizar:hover:not(:disabled) {
+    background: #1d4ed8;
+}
+
+
+.botao-finalizar:disabled {
+    background: #9ca3af;
+
+    cursor: not-allowed;
+}
+
+
+/* ============================================================
+   MENSAGENS
+============================================================ */
+
+.erro {
+    color: #dc2626;
+
+    margin-top: 15px;
+
+    font-weight: bold;
+
+    line-height: 1.5;
+
+    white-space: pre-wrap;
+}
+
+
+.sucesso {
+    color: #15803d;
+
+    margin-top: 15px;
+
+    font-weight: bold;
+}
+
+
+/* ============================================================
+   TELA FINAL
+============================================================ */
+
+.resultado {
+    display: none;
+
+    text-align: center;
+}
+
+
+.resultado-sucesso {
+    color: #15803d;
+
+    font-size: 22px;
+
+    font-weight: bold;
+
+    margin: 25px 0 15px;
+}
+
+
+.resultado-texto {
+    color: #6b7280;
+
+    line-height: 1.6;
+}
+
+
+/* ============================================================
+   ASSINATURA
+============================================================ */
+
+.assinatura {
+    text-align: center;
+
+    color: #9ca3af;
+
+    font-size: 10px;
+
+    margin-top: 20px;
+
+    padding-bottom: 10px;
+}
+
+
+/* ============================================================
+   CELULAR
+============================================================ */
+
+@media(max-width:600px) {
+
+    .container {
+        margin: 10px;
+
+        padding: 10px;
+    }
+
+
+    .card {
+        padding: 20px;
+    }
+
+
+    .questao {
+        padding: 16px;
+    }
+
+}
+
+</style>
 
 </head>
 
@@ -105,43 +338,146 @@
 
 <div class="container">
 
-    <div class="card">
 
-        <h1>Teste de conexão</h1>
+<!-- ==========================================================
+     FORMULÁRIO
+=========================================================== -->
 
-        <p>
-            Digite um nome para testar o cadastro no Supabase.
-        </p>
+<div
+    class="card"
+    id="formulario"
+>
+
+    <h1>
+        Teste de Negociação
+    </h1>
 
 
-        <label for="nome">
-            Nome
+    <p class="descricao">
+        Responda às questões de acordo com o seu comportamento habitual durante negociações.
+    </p>
+
+
+    <p class="descricao">
+        Não existem respostas certas ou erradas.
+        Escolha a alternativa que melhor representa você.
+    </p>
+
+
+    <!-- ======================================================
+         NOME
+    ======================================================= -->
+
+    <div class="campo-nome">
+
+        <label
+            class="titulo"
+            for="nome"
+        >
+            Nome do candidato
         </label>
 
 
         <input
             type="text"
             id="nome"
-            placeholder="Digite um nome para teste"
+            placeholder="Digite seu nome completo"
+            autocomplete="name"
+            maxlength="150"
         >
-
-
-        <button
-            id="botao"
-            onclick="testarSupabase()"
-        >
-            Testar conexão
-        </button>
-
-
-        <div id="mensagem"></div>
 
     </div>
+
+
+    <!-- ======================================================
+         QUESTÕES
+    ======================================================= -->
+
+    <div id="questoes"></div>
+
+
+    <!-- ======================================================
+         MENSAGENS
+    ======================================================= -->
+
+    <div
+        id="erro"
+        class="erro"
+    ></div>
+
+
+    <div
+        id="mensagemSucesso"
+        class="sucesso"
+    ></div>
+
+
+    <!-- ======================================================
+         BOTÃO
+    ======================================================= -->
+
+    <button
+        type="button"
+        class="botao-finalizar"
+        id="botaoFinalizar"
+        onclick="finalizarTeste()"
+    >
+        Finalizar teste
+    </button>
+
+</div>
+
+
+<!-- ==========================================================
+     TELA DE CONCLUSÃO
+=========================================================== -->
+
+<div
+    class="card resultado"
+    id="resultado"
+>
+
+    <h1>
+        Teste concluído
+    </h1>
+
+
+    <div class="resultado-sucesso">
+        Suas respostas foram registradas.
+    </div>
+
+
+    <p class="resultado-texto">
+        Obrigado por participar do Teste de Negociação.
+    </p>
+
+
+    <p class="resultado-texto">
+        O resultado desta avaliação será analisado posteriormente.
+    </p>
+
+</div>
+
+
+<!-- ==========================================================
+     ASSINATURA
+=========================================================== -->
+
+<div class="assinatura">
+
+    Desenvolvido por :
+    Wemerson Leal
+    © 2026 -
+    RH Garcia Supermercados.
+
+</div>
+
 
 </div>
 
 
 <script>
+
 
 /* ============================================================
    CONFIGURAÇÃO DO SUPABASE
@@ -150,223 +486,601 @@
 const SUPABASE_API =
     "https://wxlltutgwoslyhqvbhqb.supabase.co/rest/v1/";
 
+
 const SUPABASE_KEY =
     "sb_publishable_xgSMPfvdpWLPjwECyOkADw_FR44UcVk";
 
 
 /* ============================================================
-   TESTE
+   PERGUNTAS
 ============================================================ */
 
-async function testarSupabase() {
+const perguntas = [
 
-    const nome =
-        document
-            .getElementById("nome")
-            .value
-            .trim();
+    "Durante as negociações, você busca apresentar suas ideias no \"melhor momento\"?",
 
-    const mensagem =
-        document
-            .getElementById("mensagem");
+    "Você procura também ver os interesses e necessidades do outro lado?",
+
+    "Antes de iniciar a negociação você costuma estabelecer sua \"margem de concessão\"?",
+
+    "Durante a negociação você ouve mais do que fala?",
+
+    "Após apresentar cada uma de suas ideias, você procura certificar-se de que a outra parte as entendeu e/ou aceitou?",
+
+    "Você procura conhecer preliminarmente alguma coisa do comportamento da pessoa com quem vai negociar? Forças, fraquezas?",
+
+    "Durante a negociação você focaliza predominantemente as forças (aspectos positivos) do outro negociador?",
+
+    "Por melhor que seja sua posição ou situação, você procura deixar uma \"saída honrosa\" para o outro negociador?",
+
+    "Ao apresentar suas ideias você costuma relacioná-las aos interesses e expectativas da outra parte?",
+
+    "Você costuma negociar com objetivos amplos, (em oposição a ter apenas um único e específico intuito durante toda a negociação)?",
+
+    "Caso o outro negociador não apresente dúvidas sobre sua proposição, você costuma tomar a iniciativa de fazê-lo, pois tem consciência de que mais tarde essas dúvidas poderão prejudicar o fechamento do negócio?",
+
+    "Você costuma cumprir \"à risca\", \"ao pé da letra\" suas promessas? Respeita prazos?",
+
+    "Nos seus contatos com pessoas, você diz o que pensa sem maiores preocupações em agradar à outra parte (em oposição a \"dourar a pílula\")?",
+
+    "Você consegue conviver (não necessariamente concordar, mas aceitar) com pessoas que pensem e se comportem de maneira diferente de você?",
+
+    "Se possuir informações relevantes para o andamento da negociação (não confidenciais) você as reparte com a pessoa com quem está negociando?",
+
+    "Você costuma ver qualquer mudança ou situação nova como uma oportunidade para se desenvolver, crescer mais (em oposição a ver a mudança como algo ameaçador)?",
+
+    "Depois de expor toda a sua argumentação, você costuma puxar, solicitar (sem pressão) pela decisão da outra parte?",
+
+    "Você evita colocar contra a parede o outro negociador, pressionando-o, \"forçando a barra\"?",
+
+    "Você inicia a negociação admitindo a possibilidade de que seus pontos de vista não prevaleçam (você não quer perder, mas admite perder)?",
+
+    "Você consegue transformar uma situação adversa em oportunidade para novos negócios, serviços ou ideias?",
+
+    "Você convive com situações de tensão (longas ou curtas), sem alterar significativamente seu comportamento e suas táticas como negociador?",
+
+    "Você antes de apresentar qualquer argumentação procura se colocar no lugar do outro negociador, imaginando possíveis objeções ou falhas na sua proposição?",
+
+    "As ideias apresentadas por você são objeto de análise prévia quanto a possíveis resultados e consequências (para você e para sua organização)?",
+
+    "Seu comportamento durante a negociação costuma levar em conta o fato de que no futuro você poderá voltar a negociar com a mesma pessoa?",
+
+    "Ao negociar com um subordinado e/ou numa situação em que você tenha qualquer tipo de ascendência sobre o outro negociador, você costuma tratar a outra parte em termos iguais, evitando evidenciar essa superioridade?",
+
+    "Durante a negociação sua preocupação é de esgotar as fontes de fatos e informações sobre o tópico em questão, antes de emitir qualquer opinião ou avaliação?",
+
+    "Você procura fazer perguntas ao negociador que demandam respostas além do simples SIM ou NÃO?",
+
+    "Durante a negociação você espera a outra parte terminar sua argumentação para então iniciar sua resposta?",
+
+    "Você transmite à outra parte profunda convicção sobre suas ideias ou propósitos (a certeza de que aquilo que você propõe é bom e útil para ambos)?",
+
+    "Você procura negociar em todas as suas áreas de atuação (trabalho, lazer, família etc.), em oposição a negociar apenas em uma delas (trabalho, por exemplo) e nas outras partir para a imposição da hierarquia ou qualquer outro método que coloque a outra parte em posição desigual em relação a você?"
+
+];
+
+
+/* ============================================================
+   CRIAÇÃO DAS QUESTÕES
+============================================================ */
+
+const containerQuestoes =
+    document.getElementById("questoes");
+
+
+perguntas.forEach(
+    (pergunta, indice) => {
+
+        const numero =
+            indice + 1;
+
+
+        const bloco =
+            document.createElement("div");
+
+
+        bloco.className =
+            "questao";
+
+
+        bloco.innerHTML = `
+
+            <div class="numero">
+                Questão ${numero}
+            </div>
+
+
+            <div class="pergunta">
+                ${pergunta}
+            </div>
+
+
+            <label class="alternativa">
+
+                <input
+                    type="radio"
+                    name="q${numero}"
+                    value="3"
+                >
+
+                Sempre
+
+            </label>
+
+
+            <label class="alternativa">
+
+                <input
+                    type="radio"
+                    name="q${numero}"
+                    value="2"
+                >
+
+                Às vezes
+
+            </label>
+
+
+            <label class="alternativa">
+
+                <input
+                    type="radio"
+                    name="q${numero}"
+                    value="1"
+                >
+
+                Raramente
+
+            </label>
+
+        `;
+
+
+        containerQuestoes.appendChild(
+            bloco
+        );
+
+    }
+);
+
+
+/* ============================================================
+   ENVIA DADOS PARA O SUPABASE
+============================================================ */
+
+async function enviarSupabase(
+    tabela,
+    dados
+) {
+
+
+    const url =
+        `${SUPABASE_API}${tabela}`;
+
+
+    console.log(
+        "Enviando dados para:",
+        url
+    );
+
+
+    const resposta =
+        await fetch(
+            url,
+            {
+
+                method: "POST",
+
+                headers: {
+
+                    "apikey":
+                        SUPABASE_KEY,
+
+                    "Authorization":
+                        `Bearer ${SUPABASE_KEY}`,
+
+                    "Content-Type":
+                        "application/json",
+
+                    "Prefer":
+                        "return=minimal"
+
+                },
+
+                body:
+                    JSON.stringify(dados)
+
+            }
+        );
+
+
+    const texto =
+        await resposta.text();
+
+
+    console.log(
+        "Status:",
+        resposta.status
+    );
+
+
+    console.log(
+        "Resposta:",
+        texto
+    );
+
+
+    if (!resposta.ok) {
+
+
+        let detalhe =
+            texto;
+
+
+        try {
+
+            const json =
+                JSON.parse(texto);
+
+
+            detalhe =
+                json.message ||
+                json.error ||
+                json.details ||
+                json.hint ||
+                texto;
+
+        }
+
+        catch (e) {
+
+            // Mantém resposta original
+
+        }
+
+
+        throw new Error(
+            `HTTP ${resposta.status}: ${detalhe}`
+        );
+
+    }
+
+
+    return texto;
+
+}
+
+
+/* ============================================================
+   FINALIZA TESTE
+============================================================ */
+
+let enviando = false;
+
+
+async function finalizarTeste() {
+
+
+    /* Evita duplo envio */
+
+    if (enviando) {
+        return;
+    }
+
+
+    const nomeInput =
+        document.getElementById("nome");
+
+
+    const erro =
+        document.getElementById("erro");
+
 
     const botao =
-        document
-            .getElementById("botao");
+        document.getElementById(
+            "botaoFinalizar"
+        );
 
 
     /* Limpa mensagem */
 
-    mensagem.className = "";
-
-    mensagem.style.display = "none";
-
-    mensagem.textContent = "";
+    erro.textContent = "";
 
 
-    /* Validação */
+    /* ========================================================
+       VALIDA NOME
+    ======================================================== */
+
+    const nome =
+        nomeInput.value.trim();
+
 
     if (!nome) {
 
-        mensagem.className = "erro";
+        erro.textContent =
+            "Digite o nome do candidato.";
 
-        mensagem.textContent =
-            "Digite um nome para testar.";
+        nomeInput.focus();
 
         return;
     }
 
 
-    /* Desativa botão */
+    if (nome.length < 2) {
 
-    botao.disabled = true;
+        erro.textContent =
+            "Digite o nome completo do candidato.";
 
-    botao.textContent =
-        "Testando conexão...";
+        nomeInput.focus();
 
-
-    try {
-
-        /* ====================================================
-           GERA ID
-        ==================================================== */
-
-        const id =
-            crypto.randomUUID();
+        return;
+    }
 
 
-        console.log(
-            "ID gerado:",
-            id
-        );
+    /* ========================================================
+       COLETA RESPOSTAS
+    ======================================================== */
+
+    const respostas = {};
+
+    let pontuacao = 0;
 
 
-        /* ====================================================
-           ENVIA PARA SUPABASE
-        ==================================================== */
+    /* ========================================================
+       VERIFICA TODAS AS 30 QUESTÕES
+    ======================================================== */
+
+    for (
+        let i = 1;
+        i <= 30;
+        i++
+    ) {
+
 
         const resposta =
-            await fetch(
-
-                `${SUPABASE_API}candidates`,
-
-                {
-
-                    method: "POST",
-
-                    headers: {
-
-                        "apikey":
-                            SUPABASE_KEY,
-
-                        "Authorization":
-                            `Bearer ${SUPABASE_KEY}`,
-
-                        "Content-Type":
-                            "application/json",
-
-                        "Prefer":
-                            "return=minimal"
-
-                    },
-
-                    body:
-                        JSON.stringify({
-
-                            id: id,
-
-                            name: nome
-
-                        })
-
-                }
-
+            document.querySelector(
+                `input[name="q${i}"]:checked`
             );
 
 
-        /* ====================================================
-           LÊ RESPOSTA
-        ==================================================== */
+        /* ----------------------------------------------------
+           QUESTÃO NÃO RESPONDIDA
+        ---------------------------------------------------- */
 
-        const texto =
-            await resposta.text();
-
-
-        console.log(
-            "Status:",
-            resposta.status
-        );
+        if (!resposta) {
 
 
-        console.log(
-            "Resposta:",
-            texto
-        );
+            erro.textContent =
+
+                `Responda todas as 30 questões antes de finalizar.\n\n` +
+
+                `Falta responder a questão ${i}.`;
 
 
-        /* ====================================================
-           VERIFICA ERRO
-        ==================================================== */
-
-        if (!resposta.ok) {
-
-            let detalhe =
-                texto;
+            const questao =
+                document.querySelector(
+                    `input[name="q${i}"]`
+                )?.closest(
+                    ".questao"
+                );
 
 
-            try {
+            if (questao) {
 
-                const json =
-                    JSON.parse(texto);
+                questao.scrollIntoView({
 
+                    behavior:
+                        "smooth",
 
-                detalhe =
-                    json.message ||
-                    json.error ||
-                    json.details ||
-                    json.hint ||
-                    texto;
+                    block:
+                        "center"
 
-            }
-
-            catch (e) {
-
-                // Mantém resposta original
+                });
 
             }
 
 
-            throw new Error(
-
-                `HTTP ${resposta.status}: ${detalhe}`
-
-            );
+            return;
 
         }
 
 
+        /* ----------------------------------------------------
+           VALOR
+        ---------------------------------------------------- */
+
+        const valor =
+            Number(
+                resposta.value
+            );
+
+
+        /* ----------------------------------------------------
+           GUARDA RESPOSTA
+        ---------------------------------------------------- */
+
+        respostas[
+            String(i)
+        ] =
+
+            valor === 3
+                ? "Sempre"
+                : valor === 2
+                    ? "Às vezes"
+                    : "Raramente";
+
+
+        /* ----------------------------------------------------
+           SOMA PONTUAÇÃO
+        ---------------------------------------------------- */
+
+        pontuacao +=
+            valor;
+
+    }
+
+
+    /* ========================================================
+       CLASSIFICAÇÃO
+    ======================================================== */
+
+    let classificacao;
+
+
+    if (pontuacao >= 71) {
+
+        classificacao =
+            "Excelente negociador";
+
+    }
+
+    else if (pontuacao >= 50) {
+
+        classificacao =
+            "Negociador razoável";
+
+    }
+
+    else {
+
+        classificacao =
+            "Mau Negociador";
+
+    }
+
+
+    /* ========================================================
+       BLOQUEIA BOTÃO
+    ======================================================== */
+
+    enviando =
+        true;
+
+
+    botao.disabled =
+        true;
+
+
+    botao.textContent =
+        "Salvando respostas...";
+
+
+    try {
+
+
         /* ====================================================
-           SUCESSO
+           GERA ID ÚNICO
         ==================================================== */
 
-        mensagem.className =
-            "sucesso";
+        const candidateId =
+            crypto.randomUUID();
 
 
-        mensagem.textContent =
+        /* ====================================================
+           SALVA CANDIDATO
+        ==================================================== */
 
-            "CONEXÃO FUNCIONANDO!\n\n" +
+        await enviarSupabase(
 
-            "O candidato foi gravado com sucesso no Supabase.\n\n" +
+            "candidates",
 
-            "ID criado:\n" +
+            {
 
-            id;
+                id:
+                    candidateId,
+
+                name:
+                    nome
+
+            }
+
+        );
 
 
-        botao.textContent =
-            "Teste realizado";
+        /* ====================================================
+           SALVA RESULTADO
+        ==================================================== */
+
+        await enviarSupabase(
+
+            "attempts",
+
+            {
+
+                candidate_id:
+                    candidateId,
+
+                score:
+                    pontuacao,
+
+                total_questions:
+                    30,
+
+                classification:
+                    classificacao,
+
+                answers:
+                    respostas
+
+            }
+
+        );
+
+
+        /* ====================================================
+           ESCONDE FORMULÁRIO
+        ==================================================== */
+
+        document
+            .getElementById(
+                "formulario"
+            )
+            .style.display =
+                "none";
+
+
+        /* ====================================================
+           MOSTRA CONFIRMAÇÃO
+        ==================================================== */
+
+        document
+            .getElementById(
+                "resultado"
+            )
+            .style.display =
+                "block";
+
+
+        /* Volta para o topo */
+
+        window.scrollTo({
+
+            top: 0,
+
+            behavior:
+                "smooth"
+
+        });
 
 
     }
 
-    catch (erro) {
+    catch (erroEnvio) {
+
 
         console.error(
-            "ERRO:",
-            erro
+            "ERRO AO SALVAR NO SUPABASE:",
+            erroEnvio
         );
 
 
-        mensagem.className =
-            "erro";
+        erro.textContent =
 
+            "Não foi possível salvar o teste.\n\n" +
 
-        mensagem.textContent =
+            "Erro retornado pelo Supabase:\n\n" +
 
-            "ERRO AO CONECTAR AO SUPABASE\n\n" +
-
-            erro.message;
+            erroEnvio.message;
 
 
         botao.disabled =
@@ -374,7 +1088,11 @@ async function testarSupabase() {
 
 
         botao.textContent =
-            "Tentar novamente";
+            "Finalizar teste";
+
+
+        enviando =
+            false;
 
     }
 
